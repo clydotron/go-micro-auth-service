@@ -11,11 +11,9 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: '1.21.3'
-      - run: go version
-      - run: go test .
+      - run: go test ./...
     
   build:
-    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Get code
