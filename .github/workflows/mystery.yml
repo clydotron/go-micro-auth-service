@@ -18,22 +18,11 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
-        with:
-          images: ${{ secrets.DOCKERHUB_USERNAME }}/auth-service
-          tags: |
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=semver,pattern={{major}}
-      - name: Output tags
-        run: echo ${{ steps.meta.outputs.tags }}
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
           context: .
           file: ./auth-service.dockerfile
           push: true
-          tags: ${{ github.ref_name }}
+          tags: clydotron/auth-service:${{ github.ref_name }}
 
