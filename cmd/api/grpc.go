@@ -1,11 +1,12 @@
 package main
 
 import (
-	"auth-service/data"
-	auth "auth-service/protos"
 	"context"
 	"log"
 	"net"
+
+	"github.com/clydotron/go-micro-auth-service/data"
+	auth "github.com/clydotron/go-micro-auth-service/protos"
 
 	"google.golang.org/grpc"
 )

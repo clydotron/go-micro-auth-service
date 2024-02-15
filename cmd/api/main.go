@@ -1,13 +1,14 @@
 package main
 
 import (
-	"auth-service/data"
 	"database/sql"
 	"fmt"
 	"log"
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/clydotron/go-micro-auth-service/data"
 
 	_ "github.com/jackc/pgconn"
 	_ "github.com/jackc/pgx/v4"
