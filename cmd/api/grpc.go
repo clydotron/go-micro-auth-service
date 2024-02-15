@@ -10,13 +10,15 @@ import (
 	"google.golang.org/grpc"
 )
 
-var gRpcPort = "50001"
+var gRPCPort = "50001"
 
+// AuthServer - implemenation of gRPC interface
 type AuthServer struct {
 	auth.UnimplementedAuthServiceServer
 	UserRepo *data.PostgresUserRepo
 }
 
+// Authenticate - accessable via gRPC
 func (a *AuthServer) Authenticate(ctx context.Context, req *auth.AuthRequest) (*auth.AuthResponse, error) {
 
 	user, err := a.UserRepo.GetByEmail(req.GetEmail())
@@ -33,7 +35,7 @@ func (a *AuthServer) Authenticate(ctx context.Context, req *auth.AuthRequest) (*
 }
 
 func (app *App) gRPCListen() {
-	listener, err := net.Listen("tcp", ":"+gRpcPort)
+	listener, err := net.Listen("tcp", ":"+gRPCPort)
 	if err != nil {
 		log.Fatalln("Failed to listen for gRPC:", err)
 	}
@@ -41,7 +43,7 @@ func (app *App) gRPCListen() {
 	srv := grpc.NewServer()
 	auth.RegisterAuthServiceServer(srv, &AuthServer{UserRepo: app.UserRepo})
 
-	log.Println("gRPC server started on port", gRpcPort)
+	log.Println("gRPC server started on port", gRPCPort)
 
 	if err := srv.Serve(listener); err != nil {
 		log.Fatalln("Failed to listen for gRPC:", err)

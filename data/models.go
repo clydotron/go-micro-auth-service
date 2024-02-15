@@ -12,10 +12,12 @@ import (
 
 const dbTimeout = time.Second * 3
 
+// PostgresUserRepo - TODO switch this to an interface and add a data abstraction layer
 type PostgresUserRepo struct {
 	db *sql.DB
 }
 
+// NewPostgresUserRepo - creates a new PostgresUserRepo (whoa...!)
 func NewPostgresUserRepo(db *sql.DB) *PostgresUserRepo {
 	return &PostgresUserRepo{db: db}
 }

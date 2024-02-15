@@ -32,6 +32,7 @@ import (
 
 const webPort = "80"
 
+// App more info goes here
 type App struct {
 	DB       *sql.DB
 	UserRepo *data.PostgresUserRepo
