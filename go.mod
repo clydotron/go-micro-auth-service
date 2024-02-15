@@ -1,4 +1,4 @@
-module auth-service
+module github.com/clydotron/go-micro-auth-service
 
 go 1.21.3
 
