@@ -1,3 +1,4 @@
+# builds and pushes a docker image to docker hub when a tag is created.
 name: Push to DockerHub
 on:
   push:
