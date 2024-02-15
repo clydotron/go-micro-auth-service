@@ -1,8 +1,12 @@
-name: Publish Docker image 2
-on: [workflow_dispatch]
+# builds and pushes a docker image to docker hub when a tag is created.
+name: Push to DockerHub
+on:
+  push:
+    tags:
+      - 'v*'
 jobs:
-  push_to_registry_x:
-    name: Push Docker image to Docker Hub
+  push_to_docker_hub:
+    name: Build and Push image to DockerHub
     runs-on: ubuntu-latest
     steps:
       - name: Get code
@@ -13,17 +17,11 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
-        with:
-         images: clydotron/auth-service
-
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
           context: .
           file: ./auth-service.dockerfile
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/auth-service:${{ github.ref_name }}
+
