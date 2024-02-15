@@ -8,6 +8,8 @@ import (
 	helpers "github.com/clydotron/toolbox/helpers"
 )
 
+// Authenticate - handler for the /authentication http route
+// TODO: make this private
 func (a *App) Authenticate(w http.ResponseWriter, r *http.Request) {
 	// TODO put these someplace common (but not in common)
 	var requestPayload struct {
@@ -22,7 +24,7 @@ func (a *App) Authenticate(w http.ResponseWriter, r *http.Request) {
 
 	user, err := a.UserRepo.GetByEmail(requestPayload.Email)
 	if err != nil {
-		helpers.ErrorJSON(w, errors.New("Invalid credentials"), http.StatusBadRequest)
+		helpers.ErrorJSON(w, errors.New("invalid credentials"), http.StatusBadRequest)
 		return
 	}
 
